@@ -1,0 +1,373 @@
+/* =============================================
+   CSS Custom Properties
+   ============================================= */
+:root {
+  --bg:           #f9f7f4;
+  --card:         #ffffff;
+  --text:         #2d2d2d;
+  --text-muted:   #999999;
+  --accent:       #ff6b6b;
+  --border:       #eeebe7;
+
+  --alain:        #dbeeff;
+  --sibylle:      rgba(255, 215, 0, 0.25);
+  --noah:         #ffddc2;
+
+  --alain-border:   #90c4f0;
+  --sibylle-border: rgba(200, 170, 0, 0.5);
+  --noah-border:    #f0b080;
+
+  --radius:       12px;
+  --shadow:       0 2px 8px rgba(0, 0, 0, 0.08);
+  --padding:      16px;
+  --max-width:    480px;
+}
+
+/* =============================================
+   Reset + Base
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* =============================================
+   Header (sticky)
+   ============================================= */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 14px var(--padding);
+  padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.app-header h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+/* =============================================
+   Datumsnavigation
+   ============================================= */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 16px auto 0;
+  padding: 0 var(--padding);
+  gap: 8px;
+}
+
+.nav-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--accent);
+  border-radius: var(--radius);
+  transition: background-color 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+
+.nav-btn:active {
+  background-color: rgba(255, 107, 107, 0.12);
+  transform: scale(0.92);
+}
+
+.date-display {
+  flex: 1;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  line-height: 1.3;
+}
+
+.date-display.today {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.date-display:active {
+  background-color: rgba(255, 107, 107, 0.08);
+}
+
+/* =============================================
+   Mahlzeit-Karten Container
+   ============================================= */
+.meals-container {
+  max-width: var(--max-width);
+  margin: 16px auto;
+  padding: 0 var(--padding);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =============================================
+   Mahlzeit-Karte
+   ============================================= */
+.meal-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.meal-card:focus-within {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.meal-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 12px var(--padding) 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* =============================================
+   Menü-Feld (contenteditable)
+   ============================================= */
+.meal-field {
+  min-height: 54px;
+  padding: 14px var(--padding);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+  outline: none;
+  cursor: text;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid var(--border);
+  word-break: break-word;
+}
+
+.meal-field:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.meal-field:focus {
+  background-color: rgba(255, 107, 107, 0.04);
+}
+
+/* Speicher-Animation (Aufleuchten grün) */
+.meal-field.saved,
+.note-field.saved {
+  animation: flash-saved 0.6s ease-out;
+}
+
+@keyframes flash-saved {
+  0%   { background-color: rgba(72, 199, 142, 0.35); }
+  100% { background-color: transparent; }
+}
+
+/* =============================================
+   Karten-Footer (Chips + Notiz)
+   ============================================= */
+.meal-footer {
+  padding: 10px var(--padding) 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* =============================================
+   Personen-Chips
+   ============================================= */
+.person-chips {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.chip {
+  min-width: 36px;
+  min-height: 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+  background-color: transparent;
+  transition: all 0.15s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chip:active {
+  transform: scale(0.88);
+}
+
+/* Inaktiver Zustand — schon oben definiert (default) */
+
+/* Aktive Zustände per Person */
+.chip[data-person="alain"].active {
+  background-color: var(--alain);
+  border-color: var(--alain-border);
+  color: #1a6eb5;
+}
+
+.chip[data-person="sibylle"].active {
+  background-color: var(--sibylle);
+  border-color: var(--sibylle-border);
+  color: #8a7000;
+}
+
+.chip[data-person="noah"].active {
+  background-color: var(--noah);
+  border-color: var(--noah-border);
+  color: #c05e10;
+}
+
+/* =============================================
+   Notizfeld
+   ============================================= */
+.note-field {
+  flex: 1;
+  min-height: 36px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  cursor: text;
+  line-height: 1.4;
+  word-break: break-word;
+  transition: border-color 0.15s, background-color 0.2s;
+  align-self: center;
+}
+
+.note-field:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.note-field:not(:empty) {
+  color: var(--text);
+}
+
+.note-field:focus {
+  border-color: var(--accent);
+  background-color: var(--card);
+}
+
+/* =============================================
+   Sync-Status-Anzeige
+   ============================================= */
+.sync-status {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background-color: var(--text);
+  color: #fff;
+  font-size: 0.78rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 200;
+}
+
+.sync-status.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.sync-status.error {
+  background-color: var(--accent);
+}
+
+/* =============================================
+   Responsive: Tablet / Desktop
+   ============================================= */
+@media (min-width: 520px) {
+  .app-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .meals-container {
+    padding: 0 24px;
+    gap: 16px;
+  }
+
+  .date-nav {
+    padding: 0 24px;
+  }
+
+  .meal-field {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    background-color: #f0ede8;
+  }
+
+  .app-header {
+    background-color: var(--card);
+  }
+
+  .meals-container,
+  .date-nav {
+    max-width: var(--max-width);
+  }
+}

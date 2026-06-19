@@ -1,0 +1,16 @@
+{
+  "name": "Was git's z'ässe? 🍽️",
+  "short_name": "Menüplan",
+  "description": "Familienmenüplan Bernheim",
+  "start_url": "/menuplan-app/",
+  "scope": "/menuplan-app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f9f7f4",
+  "theme_color": "#ff6b6b",
+  "lang": "de-CH",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

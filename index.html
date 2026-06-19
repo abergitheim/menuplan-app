@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Menüplan">
+  <meta name="theme-color" content="#ff6b6b">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>Was git's z'ässe? 🍽️</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <h1>Was git's z'ässe? 🍽️</h1>
+  </header>
+
+  <!-- Datumsnavigation -->
+  <nav class="date-nav">
+    <button class="nav-btn" id="btn-prev" aria-label="Vorheriger Tag">‹</button>
+    <button class="date-display" id="date-display" aria-label="Heute anzeigen"></button>
+    <button class="nav-btn" id="btn-next" aria-label="Nächster Tag">›</button>
+  </nav>
+
+  <!-- Mahlzeit-Karten -->
+  <main class="meals-container" id="meals-container">
+
+    <!-- Frühstück -->
+    <article class="meal-card" data-meal="breakfast">
+      <h2 class="meal-header">🌅 Frühstück</h2>
+      <div class="meal-field" data-field="menu" contenteditable="true" role="textbox" aria-label="Frühstück Menü" aria-multiline="false" data-placeholder="+ Was gibt's?"></div>
+      <div class="meal-footer">
+        <div class="person-chips">
+          <button class="chip" data-person="alain" aria-label="Alain dabei" aria-pressed="false">A</button>
+          <button class="chip" data-person="sibylle" aria-label="Sibylle dabei" aria-pressed="false">S</button>
+          <button class="chip" data-person="noah" aria-label="Noah dabei" aria-pressed="false">N</button>
+        </div>
+        <div class="note-field" data-field="notes" contenteditable="true" role="textbox" aria-label="Notiz" data-placeholder="Notiz…"></div>
+      </div>
+    </article>
+
+    <!-- Mittagessen -->
+    <article class="meal-card" data-meal="lunch">
+      <h2 class="meal-header">☀️ Mittagessen</h2>
+      <div class="meal-field" data-field="menu" contenteditable="true" role="textbox" aria-label="Mittagessen Menü" aria-multiline="false" data-placeholder="+ Was gibt's?"></div>
+      <div class="meal-footer">
+        <div class="person-chips">
+          <button class="chip" data-person="alain" aria-label="Alain dabei" aria-pressed="false">A</button>
+          <button class="chip" data-person="sibylle" aria-label="Sibylle dabei" aria-pressed="false">S</button>
+          <button class="chip" data-person="noah" aria-label="Noah dabei" aria-pressed="false">N</button>
+        </div>
+        <div class="note-field" data-field="notes" contenteditable="true" role="textbox" aria-label="Notiz" data-placeholder="Notiz…"></div>
+      </div>
+    </article>
+
+    <!-- Abendessen -->
+    <article class="meal-card" data-meal="dinner">
+      <h2 class="meal-header">🌙 Abendessen</h2>
+      <div class="meal-field" data-field="menu" contenteditable="true" role="textbox" aria-label="Abendessen Menü" aria-multiline="false" data-placeholder="+ Was gibt's?"></div>
+      <div class="meal-footer">
+        <div class="person-chips">
+          <button class="chip" data-person="alain" aria-label="Alain dabei" aria-pressed="false">A</button>
+          <button class="chip" data-person="sibylle" aria-label="Sibylle dabei" aria-pressed="false">S</button>
+          <button class="chip" data-person="noah" aria-label="Noah dabei" aria-pressed="false">N</button>
+        </div>
+        <div class="note-field" data-field="notes" contenteditable="true" role="textbox" aria-label="Notiz" data-placeholder="Notiz…"></div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Verbindungs-Status -->
+  <div class="sync-status" id="sync-status" aria-live="polite"></div>
+
+  <!-- Firebase SDKs via CDN (compat mode für einfache Nutzung) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <!-- App -->
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
