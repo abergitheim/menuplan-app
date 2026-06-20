@@ -278,7 +278,7 @@ button {
   flex: 1;
   min-height: 36px;
   padding: 8px 10px;
-  font-size: 0.82rem;
+  font-size: 1rem; /* min. 16px — verhindert iOS Auto-Zoom beim Antippen */
   color: var(--text-muted);
   background-color: var(--bg);
   border: 1px solid var(--border);

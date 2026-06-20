@@ -254,11 +254,22 @@ function setupEventHandlers() {
   document.getElementById('date-display').addEventListener('click', goToday);
 
   // Wisch-Geste (Touch-Swipe links/rechts)
+  // Zwei-Finger-Gesten (Pinch-Zoom) werden explizit ignoriert
   let touchStartX = 0;
+  let touchIsMulti = false;
+
   document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) { touchIsMulti = true; return; }
+    touchIsMulti = false;
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 1) touchIsMulti = true; // zweiter Finger kam dazu
+  }, { passive: true });
+
   document.addEventListener('touchend', (e) => {
+    if (touchIsMulti) { touchIsMulti = false; return; } // Zoom-Geste → ignorieren
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 60) navigateDay(dx < 0 ? 1 : -1);
   }, { passive: true });
