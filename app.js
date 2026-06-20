@@ -260,8 +260,8 @@ function setupEventHandlers() {
 
   document.addEventListener('touchstart', (e) => {
     if (e.touches.length > 1) { touchIsMulti = true; return; }
-    touchIsMulti = false;
     touchStartX = e.touches[0].clientX;
+    // touchIsMulti wird NICHT hier zurückgesetzt — erst wenn alle Finger weg sind
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
@@ -269,7 +269,8 @@ function setupEventHandlers() {
   }, { passive: true });
 
   document.addEventListener('touchend', (e) => {
-    if (touchIsMulti) { touchIsMulti = false; return; } // Zoom-Geste → ignorieren
+    if (e.touches.length > 0) return;              // noch Finger auf Display → warten
+    if (touchIsMulti) { touchIsMulti = false; return; } // war Pinch → kein Swipe
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 60) navigateDay(dx < 0 ? 1 : -1);
   }, { passive: true });
